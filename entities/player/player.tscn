@@ -4,13 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://dvdjg0jjf4vx" path="res://assets/sprites/konata.jpg" id="2_sglur"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_abrql"]
-radius = 5.0
-height = 12.0
+radius = 4.0
+height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abrql"]
 size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_abrql")
 
@@ -20,7 +21,7 @@ scale = Vector2(0.022, 0.029)
 texture = ExtResource("2_sglur")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0, -4)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_abrql")
 

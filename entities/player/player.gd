@@ -28,7 +28,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func interact() -> void:
 	var overlapping_areas = interaction_detector.get_overlapping_areas()
 	
-	if overlapping_areas.size > 0:
+	if overlapping_areas.size() > 0:
 		var target = overlapping_areas[0]
 		
 		if target.has_method("on_interact"):

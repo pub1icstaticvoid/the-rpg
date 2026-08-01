@@ -1,3 +1,44 @@
-[gd_scene format=3 uid="uid://46dq2nlx74cj"]
+[gd_scene load_steps=5 format=3 uid="uid://46dq2nlx74cj"]
 
-[node name="Table" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://bra8odrsgaqed" path="res://assets/sprites/table.png" id="1_nf3pd"]
+[ext_resource type="Script" uid="uid://dnys522lrrn4t" path="res://objects/table.gd" id="1_tmajv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nf3pd"]
+size = Vector2(12.5, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tmajv"]
+size = Vector2(32, 24)
+
+[node name="Table" type="StaticBody2D"]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_tmajv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.013, 0.013)
+texture = ExtResource("1_nf3pd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, 4)
+shape = SubResource("RectangleShape2D_nf3pd")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_tmajv")
+
+[node name="Seats" type="Node2D" parent="."]
+
+[node name="TopLeftSeat" type="Marker2D" parent="Seats"]
+position = Vector2(-11, -5)
+
+[node name="BottomLeftSeat" type="Marker2D" parent="Seats"]
+position = Vector2(-11, 2)
+
+[node name="TopRightSeat" type="Marker2D" parent="Seats"]
+position = Vector2(11, -5)
+
+[node name="BottomRightSeat" type="Marker2D" parent="Seats"]
+position = Vector2(11, 2)
