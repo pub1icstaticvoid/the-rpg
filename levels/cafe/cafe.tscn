@@ -1,3 +1,55 @@
-[gd_scene format=3 uid="uid://2klqegvtl5rs"]
+[gd_scene load_steps=6 format=3 uid="uid://2klqegvtl5rs"]
 
-[node name="BaseLevel" type="Node2D"]
+[ext_resource type="Script" uid="uid://cedoo11jnwksp" path="res://levels/cafe/cafe.gd" id="1_0b35k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hb4xp"]
+size = Vector2(320, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b35k"]
+size = Vector2(320, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sngxr"]
+size = Vector2(10, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10b7p"]
+size = Vector2(10, 180)
+
+[node name="Cafe" type="Node2D"]
+script = ExtResource("1_0b35k")
+
+[node name="RoomBounds" type="Node2D" parent="."]
+
+[node name="NorthWall" type="StaticBody2D" parent="RoomBounds"]
+position = Vector2(160, 5)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomBounds/NorthWall"]
+shape = SubResource("RectangleShape2D_hb4xp")
+
+[node name="SouthWall" type="StaticBody2D" parent="RoomBounds"]
+position = Vector2(160, 175)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomBounds/SouthWall"]
+shape = SubResource("RectangleShape2D_0b35k")
+
+[node name="WestWall" type="StaticBody2D" parent="RoomBounds"]
+position = Vector2(5, 90)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomBounds/WestWall"]
+shape = SubResource("RectangleShape2D_sngxr")
+
+[node name="EastWall" type="StaticBody2D" parent="RoomBounds"]
+position = Vector2(315, 90)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomBounds/EastWall"]
+shape = SubResource("RectangleShape2D_10b7p")
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="ServiceWindow" type="Area2D" parent="Objects"]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/ServiceWindow"]
