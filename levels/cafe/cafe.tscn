@@ -5,6 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://46dq2nlx74cj" path="res://objects/table.tscn" id="3_sngxr"]
 [ext_resource type="Script" uid="uid://mubsy1ma4s6" path="res://objects/customer_spawner.gd" id="4_10b7p"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_10b7p"]
+vertices = PackedVector2Array(19, 160, 136.4375, 143, 190, 142, 233, 142, 299, 160, 190, 99, 135, 87, 192, 86, 228, 86, 233, 99, 91.09375, 143, 228, 50, 299, 20, 19, 20, 192, 50, 94.828125, 100, 95, 51, 95, 87, 135, 51, 134.57031, 100)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8, 9), PackedInt32Array(10, 1, 0), PackedInt32Array(8, 11, 12, 4, 9), PackedInt32Array(13, 12, 11, 14), PackedInt32Array(15, 10, 0, 13, 16, 17), PackedInt32Array(7, 6, 18, 14), PackedInt32Array(13, 14, 18, 16), PackedInt32Array(19, 15, 17, 6, 5), PackedInt32Array(5, 2, 1, 19), PackedInt32Array(9, 4, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(313, 182, 2, 179, 2, 4, 312, 4), PackedVector2Array(105, 61, 105, 77, 125, 77, 125, 61), PackedVector2Array(202, 60, 202, 76, 218, 76, 218, 60), PackedVector2Array(104, 110, 102, 133, 126, 133, 125, 110), PackedVector2Array(200, 109, 200, 132, 223, 132, 223, 109)])
+source_geometry_mode = 1
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hb4xp"]
 size = Vector2(320, 10)
 
@@ -17,12 +23,6 @@ size = Vector2(10, 180)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10b7p"]
 size = Vector2(10, 180)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_10b7p"]
-vertices = PackedVector2Array(190, 99, 135, 87, 192, 86, 228, 86, 233, 99, 19, 160, 136.46094, 143.46094, 190, 142, 233, 142, 299, 160, 92.5625, 141.5625, 228, 50, 299, 20, 19, 20, 192, 50, 94.4375, 100, 95, 51, 95, 87, 135, 51, 134.57031, 100)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8, 9), PackedInt32Array(10, 6, 5), PackedInt32Array(3, 11, 12, 9, 4), PackedInt32Array(13, 12, 11, 14), PackedInt32Array(15, 10, 5, 13, 16, 17), PackedInt32Array(2, 1, 18, 14), PackedInt32Array(13, 14, 18, 16), PackedInt32Array(19, 15, 17, 1, 0), PackedInt32Array(7, 6, 19, 0), PackedInt32Array(4, 9, 8)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(313, 182, 2, 179, 2, 4, 312, 4), PackedVector2Array(105, 61, 105, 77, 125, 77, 125, 61), PackedVector2Array(202, 60, 202, 76, 218, 76, 218, 60), PackedVector2Array(104, 110, 102, 133, 126, 133, 125, 110), PackedVector2Array(200, 109, 200, 132, 223, 132, 223, 109)])
-source_geometry_mode = 1
-
 [node name="Cafe" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_0b35k")
@@ -32,6 +32,10 @@ z_index = -10
 position = Vector2(161.00002, 89.99999)
 scale = Vector2(0.437, 0.327)
 texture = ExtResource("2_0b35k")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." groups=["navigation_polygon_source_geometry_group"]]
+position = Vector2(1, 0)
+navigation_polygon = SubResource("NavigationPolygon_10b7p")
 
 [node name="Table" parent="." instance=ExtResource("3_sngxr")]
 position = Vector2(116, 68)
@@ -92,7 +96,3 @@ zoom = Vector2(3.5, 3.5)
 [node name="CustomerSpawner" type="Node2D" parent="."]
 position = Vector2(299, 152)
 script = ExtResource("4_10b7p")
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." groups=["navigation_polygon_source_geometry_group"]]
-position = Vector2(1, 0)
-navigation_polygon = SubResource("NavigationPolygon_10b7p")

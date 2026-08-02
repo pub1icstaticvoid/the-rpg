@@ -1,17 +1,25 @@
 extends StaticBody2D
 class_name Table
 
+enum TableState {
+	EMPTY,
+	WAITING_TO_ORDER,
+	WAITING_FOR_FOOD,
+	EATING,
+	WAITING_FOR_CLEANUP
+}
+
+const MENU_ITEMS: Array[String] = ["Omurice", "Coffee", "Parfait", "Tea"]
+
 @export var table_id: int = 1
 @export var seats: Array[Marker2D] = []
 
+var current_state: TableState = TableState.EMPTY
 var current_party: Array[Customer] = []
-var table_order: Dictionary = {}
-
-var is_occupied: bool = false
-var food_delivered: bool = false
+var table_orders: Array[Dictionary] = []
 
 func can_fit_party(party_size: int) -> bool:
-	return not is_occupied and party_size <= seats.size()
+	return current_state == TableState.EMPTY and party_size <= seats.size()
 
 func get_seat_position(seat_index: int) -> Vector2:
 	if seat_index >= 0 and seat_index < seats.size():
@@ -22,24 +30,52 @@ func get_seat_position(seat_index: int) -> Vector2:
 
 func assign_party(party_nodes: Array[Customer]) -> void:
 	current_party = party_nodes
-	is_occupied = true
+	current_state = TableState.WAITING_TO_ORDER
+	table_orders.clear()
+	
+	var num_unique_items: int = randi_range(1, MENU_ITEMS.size())
+	var available_menu = MENU_ITEMS.duplicate()
+	available_menu.shuffle()
+		
+	for i in range(num_unique_items):
+		var item_name: String = available_menu.pop_back()
+		var item_qty: int = randi_range(1, party_nodes.size())
+		
+		table_orders.append({
+			"item_name": item_name,
+			"quantity": item_qty
+		})
+	
+	print("table ", table_id, " seated party of ", party_nodes.size(), ". generated order: ", table_orders)
 	
 	for i in range(party_nodes.size()):
 		var customer = party_nodes[i]
-		var seat_pos = get_seat_position(i)
-		customer.walk_to_seat(seat_pos)
+		if is_instance_valid(customer):
+			var seat_pos: Vector2 = get_seat_position(i)
+			customer.walk_to_seat(seat_pos)
 
 func on_interact() -> void:
-	if not is_occupied:
-		print("table ", table_id, " is empty")
-	elif table_order.is_empty() == null:
-		print("taking order for party of ", current_party.size(), "at table ", table_id)
-		# take order function
-	elif not food_delivered:
-		print("table ", table_id, " is waiting for their food")
-	else:
-		print("collecting payment from table ", table_id)
+	match current_state:
+		TableState.EMPTY:
+			print("table ", table_id, " is empty")
+		TableState.WAITING_TO_ORDER:
+			print("taking order for party of ", current_party.size(), " at table ", table_id)
+			# take order function
+			current_state = TableState.WAITING_FOR_FOOD
+		TableState.WAITING_FOR_FOOD:
+			print("table ", table_id, " is waiting for their food")
+		TableState.EATING:
+			print("table ", table_id, " is currently eating")
+		TableState.WAITING_FOR_CLEANUP:
+			print("collecting payment and clearing table ", table_id)
+			clear_table()
 
+func clear_table() -> void:
+	for customer in current_party:
+		customer.leave_cafe()
+	current_party.clear()
+	table_orders.clear()
+	current_state = TableState.EMPTY
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

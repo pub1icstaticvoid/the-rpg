@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhq5rdwclgy5l"]
+[gd_scene load_steps=4 format=3 uid="uid://bhq5rdwclgy5l"]
 
 [ext_resource type="Texture2D" uid="uid://c55k6lr7b08e5" path="res://assets/sprites/kagami.jpg" id="1_phbxv"]
 [ext_resource type="Script" uid="uid://cnros4x4lnde8" path="res://entities/customers/customer.gd" id="1_wwj5c"]
@@ -6,8 +6,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phbxv"]
 radius = 4.0
 height = 16.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwj5c"]
 
 [node name="Customer" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -22,13 +20,6 @@ texture = ExtResource("1_phbxv")
 position = Vector2(0, 8)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_phbxv")
-
-[node name="InteractionArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-shape = SubResource("RectangleShape2D_wwj5c")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 4.0
