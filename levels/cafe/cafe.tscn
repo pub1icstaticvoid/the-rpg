@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://2klqegvtl5rs"]
+[gd_scene load_steps=11 format=3 uid="uid://2klqegvtl5rs"]
 
 [ext_resource type="Script" uid="uid://cedoo11jnwksp" path="res://levels/cafe/cafe.gd" id="1_0b35k"]
 [ext_resource type="Texture2D" uid="uid://bah6sfycq4626" path="res://assets/sprites/cafe.jpg" id="2_0b35k"]
 [ext_resource type="PackedScene" uid="uid://46dq2nlx74cj" path="res://objects/table.tscn" id="3_sngxr"]
 [ext_resource type="Script" uid="uid://mubsy1ma4s6" path="res://objects/customer_spawner.gd" id="4_10b7p"]
+[ext_resource type="PackedScene" uid="uid://slqg12w4so1b" path="res://ui/order_pad/order_pad.tscn" id="5_cbdxm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_10b7p"]
 vertices = PackedVector2Array(19, 160, 136.4375, 143, 190, 142, 233, 142, 299, 160, 190, 99, 135, 87, 192, 86, 228, 86, 233, 99, 91.09375, 143, 228, 50, 299, 20, 19, 20, 192, 50, 94.828125, 100, 95, 51, 95, 87, 135, 51, 134.57031, 100)
@@ -96,3 +97,7 @@ zoom = Vector2(3.5, 3.5)
 [node name="CustomerSpawner" type="Node2D" parent="."]
 position = Vector2(299, 152)
 script = ExtResource("4_10b7p")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="OrderPad" parent="UI" instance=ExtResource("5_cbdxm")]

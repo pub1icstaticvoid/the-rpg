@@ -9,7 +9,14 @@ enum TableState {
 	WAITING_FOR_CLEANUP
 }
 
-const MENU_ITEMS: Array[String] = ["Omurice", "Coffee", "Parfait", "Tea"]
+const MENU_ITEMS: Array[String] = [
+	"Omurice", 
+	"Curry Rice", 
+	"Hamburg Steak", 
+	"Coffee", 
+	"Parfait", 
+	"Tea"
+]
 
 @export var table_id: int = 1
 @export var seats: Array[Marker2D] = []
@@ -60,8 +67,20 @@ func on_interact() -> void:
 			print("table ", table_id, " is empty")
 		TableState.WAITING_TO_ORDER:
 			print("taking order for party of ", current_party.size(), " at table ", table_id)
-			# take order function
-			current_state = TableState.WAITING_FOR_FOOD
+			var order_pad = get_tree().root.find_child("OrderPad", true, false)
+			
+			if order_pad:
+				order_pad.open_for_table(self)
+				
+				var submitted_data = await order_pad.order_submitted
+				
+				if not submitted_data.is_empty():
+					table_orders = submitted_data
+					current_state = TableState.WAITING_FOR_FOOD
+					print("order confirmed for table %d: " % table_id, table_orders)
+				else:
+					print("order cancelled for table %d. remaining in WAITING_TO_ORDER" % table_id)
+				
 		TableState.WAITING_FOR_FOOD:
 			print("table ", table_id, " is waiting for their food")
 		TableState.EATING:

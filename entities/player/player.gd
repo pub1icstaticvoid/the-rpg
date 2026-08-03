@@ -5,7 +5,14 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var interaction_detector: Area2D = $InteractionDetector
 
+var can_move: bool = true
+
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	
 	var input_vector := Vector2.ZERO
 	
 	input_vector.x = Input.get_axis("ui_left", "ui_right")
@@ -22,8 +29,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_move:
+		return
+	
 	if event.is_action_pressed("interact"):
 		interact()
+
+func set_movement_enabled(enabled: bool) -> void:
+	can_move = enabled
+	if not enabled:
+		velocity = Vector2.ZERO
 
 func interact() -> void:
 	var overlapping_areas = interaction_detector.get_overlapping_areas()

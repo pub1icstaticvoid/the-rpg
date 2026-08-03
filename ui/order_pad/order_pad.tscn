@@ -1,0 +1,208 @@
+[gd_scene load_steps=3 format=3 uid="uid://slqg12w4so1b"]
+
+[ext_resource type="Script" uid="uid://b1quconfk3k10" path="res://ui/order_pad/order_pad.gd" id="1_lm64o"]
+[ext_resource type="Texture2D" uid="uid://bahlskfvl6md4" path="res://assets/sprites/order_pad.png" id="1_yc13h"]
+
+[node name="OrderPad" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lm64o")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1160.0
+offset_bottom = 656.0
+color = Color(0, 0, 0, 0.27058825)
+
+[node name="PaperPad" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 394.0
+offset_top = -20.0
+offset_right = 751.0
+offset_bottom = 651.0
+texture = ExtResource("1_yc13h")
+
+[node name="MarginContainer" type="MarginContainer" parent="PaperPad"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 109.0
+offset_right = 333.0
+offset_bottom = 571.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PaperPad/MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "GUEST CHECK"
+
+[node name="HSeparator" type="HSeparator" parent="PaperPad/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MenuList" type="VBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ItemRow_Omurice" type="HBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer/MenuList"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Omurice"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+text = "Omurice"
+
+[node name="QtyMinus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Omurice"]
+layout_mode = 2
+text = "-"
+
+[node name="QtyLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Omurice"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="QtyPlus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Omurice"]
+layout_mode = 2
+text = "+"
+
+[node name="ItemRow_Curry_Rice" type="HBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer/MenuList"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Curry_Rice"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+text = "Curry Rice"
+
+[node name="QtyMinus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Curry_Rice"]
+layout_mode = 2
+text = "-"
+
+[node name="QtyLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Curry_Rice"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="QtyPlus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Curry_Rice"]
+layout_mode = 2
+text = "+"
+
+[node name="ItemRow_Hamburg_Steak" type="HBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer/MenuList"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Hamburg_Steak"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+text = "Hamburg Steak
+"
+
+[node name="QtyMinus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Hamburg_Steak"]
+layout_mode = 2
+text = "-"
+
+[node name="QtyLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Hamburg_Steak"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="QtyPlus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Hamburg_Steak"]
+layout_mode = 2
+text = "+"
+
+[node name="ItemRow_Parfait" type="HBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer/MenuList"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Parfait"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+text = "Parfait"
+
+[node name="QtyMinus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Parfait"]
+layout_mode = 2
+text = "-"
+
+[node name="QtyLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Parfait"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="QtyPlus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Parfait"]
+layout_mode = 2
+text = "+"
+
+[node name="ItemRow_Coffee" type="HBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer/MenuList"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Coffee"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+text = "Coffee"
+
+[node name="QtyMinus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Coffee"]
+layout_mode = 2
+text = "-"
+
+[node name="QtyLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Coffee"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="QtyPlus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Coffee"]
+layout_mode = 2
+text = "+"
+
+[node name="ItemRow_Tea" type="HBoxContainer" parent="PaperPad/MarginContainer/VBoxContainer/MenuList"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Tea"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+text = "Tea"
+
+[node name="QtyMinus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Tea"]
+layout_mode = 2
+text = "-"
+
+[node name="QtyLabel" type="Label" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Tea"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="QtyPlus" type="Button" parent="PaperPad/MarginContainer/VBoxContainer/MenuList/ItemRow_Tea"]
+layout_mode = 2
+text = "+"
+
+[node name="HSeparator2" type="HSeparator" parent="PaperPad/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="PaperPad/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "[Z] CONFIRM ORDER"
+
+[connection signal="pressed" from="PaperPad/MarginContainer/VBoxContainer/SubmitButton" to="." method="_on_submit_button_pressed"]
