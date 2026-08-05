@@ -8,6 +8,14 @@ signal order_cancelled
 @onready var menu_list: VBoxContainer = $PaperPad/MarginContainer/VBoxContainer/MenuList
 
 var target_table: Table = null
+
+# Player selections format: (each item has key name and values "checked" and "quantity")
+# { 
+# 	item_name: {
+# 		"checked": boolean,
+#		"qty": int
+#	}
+# }
 var player_selections: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
@@ -73,12 +81,18 @@ func open_for_table(table: Table) -> void:
 		player_selections[item]["checked"] = false
 		player_selections[item]["qty"] = 0
 	
+	for item_data in table.table_orders:
+		var item_name = item_data["item_name"]
+		var qty = item_data["quantity"]
+		if player_selections.has(item_name):
+			player_selections[item_name]["checked"] = qty > 0
+			player_selections[item_name]["qty"] = qty
+	
 	_update_ui_display()
 	show()
 	
 	_set_player_movement(false)
-	
-	_focus_first_element()
+	call_deferred("_focus_first_element")
 
 func _set_player_movement(enabled: bool) -> void:
 	var player = get_tree().root.find_child("Player", true, false)

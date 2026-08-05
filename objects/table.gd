@@ -23,7 +23,15 @@ const MENU_ITEMS: Array[String] = [
 
 var current_state: TableState = TableState.EMPTY
 var current_party: Array[Customer] = []
+
+# table_orders and customer_desired_orders format:
+# {
+#	"item_name": String,
+#	"quantity": int
+# }
+
 var table_orders: Array[Dictionary] = []
+var customer_desired_orders: Array[Dictionary] = []
 
 func can_fit_party(party_size: int) -> bool:
 	return current_state == TableState.EMPTY and party_size <= seats.size()
@@ -39,6 +47,7 @@ func assign_party(party_nodes: Array[Customer]) -> void:
 	current_party = party_nodes
 	current_state = TableState.WAITING_TO_ORDER
 	table_orders.clear()
+	customer_desired_orders.clear()
 	
 	var num_unique_items: int = randi_range(1, MENU_ITEMS.size())
 	var available_menu = MENU_ITEMS.duplicate()
@@ -48,12 +57,12 @@ func assign_party(party_nodes: Array[Customer]) -> void:
 		var item_name: String = available_menu.pop_back()
 		var item_qty: int = randi_range(1, party_nodes.size())
 		
-		table_orders.append({
+		customer_desired_orders.append({
 			"item_name": item_name,
 			"quantity": item_qty
 		})
 	
-	print("table ", table_id, " seated party of ", party_nodes.size(), ". generated order: ", table_orders)
+	print("table ", table_id, " seated party of ", party_nodes.size(), ". generated order: ", customer_desired_orders)
 	
 	for i in range(party_nodes.size()):
 		var customer = party_nodes[i]
@@ -65,7 +74,7 @@ func on_interact() -> void:
 	match current_state:
 		TableState.EMPTY:
 			print("table ", table_id, " is empty")
-		TableState.WAITING_TO_ORDER:
+		TableState.WAITING_TO_ORDER, TableState.WAITING_FOR_FOOD:
 			print("taking order for party of ", current_party.size(), " at table ", table_id)
 			var order_pad = get_tree().root.find_child("OrderPad", true, false)
 			
@@ -80,9 +89,6 @@ func on_interact() -> void:
 					print("order confirmed for table %d: " % table_id, table_orders)
 				else:
 					print("order cancelled for table %d. remaining in WAITING_TO_ORDER" % table_id)
-				
-		TableState.WAITING_FOR_FOOD:
-			print("table ", table_id, " is waiting for their food")
 		TableState.EATING:
 			print("table ", table_id, " is currently eating")
 		TableState.WAITING_FOR_CLEANUP:
