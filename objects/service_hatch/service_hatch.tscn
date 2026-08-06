@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcrxghdu1j1aw"]
 
 [ext_resource type="Texture2D" uid="uid://drdgjayv2xlf2" path="res://assets/sprites/service_hatch.jpg" id="1_88500"]
-[ext_resource type="Script" uid="uid://c1fg5u0k6dvr4" path="res://objects/service_hatch.gd" id="1_hp4ta"]
+[ext_resource type="Script" uid="uid://c1fg5u0k6dvr4" path="res://objects/service_hatch/service_hatch.gd" id="1_hp4ta"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_88500"]
 size = Vector2(34, 26)

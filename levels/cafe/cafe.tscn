@@ -1,12 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://2klqegvtl5rs"]
+[gd_scene load_steps=14 format=3 uid="uid://2klqegvtl5rs"]
 
 [ext_resource type="Script" uid="uid://cedoo11jnwksp" path="res://levels/cafe/cafe.gd" id="1_0b35k"]
 [ext_resource type="Texture2D" uid="uid://bah6sfycq4626" path="res://assets/sprites/cafe.jpg" id="2_0b35k"]
 [ext_resource type="Texture2D" uid="uid://qht5curwqvnw" path="res://assets/sprites/kitchen_doors.png" id="3_ixnh4"]
-[ext_resource type="PackedScene" uid="uid://46dq2nlx74cj" path="res://objects/table.tscn" id="3_sngxr"]
-[ext_resource type="Script" uid="uid://mubsy1ma4s6" path="res://objects/customer_spawner.gd" id="4_10b7p"]
-[ext_resource type="PackedScene" uid="uid://bcrxghdu1j1aw" path="res://objects/service_hatch.tscn" id="4_ixnh4"]
+[ext_resource type="PackedScene" uid="uid://46dq2nlx74cj" path="res://objects/table/table.tscn" id="3_sngxr"]
+[ext_resource type="Script" uid="uid://mubsy1ma4s6" path="res://levels/cafe/customer_spawner.gd" id="4_10b7p"]
+[ext_resource type="PackedScene" uid="uid://bcrxghdu1j1aw" path="res://objects/service_hatch/service_hatch.tscn" id="4_ixnh4"]
 [ext_resource type="PackedScene" uid="uid://slqg12w4so1b" path="res://ui/order_pad/order_pad.tscn" id="5_cbdxm"]
+[ext_resource type="PackedScene" uid="uid://dbf48uxfh3qyv" path="res://objects/service_hatch/hatch_ui.tscn" id="8_d4hhe"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_10b7p"]
 vertices = PackedVector2Array(19, 160, 183, 144, 211, 142, 263, 142, 299, 160, 131, 144, 101.42969, 143.67969, 48.5625, 145.32813, 263, 90, 263, 46, 299, 36, 19, 36, 211, 46, 50.40625, 101, 48, 90, 211, 98, 183, 100, 184.42969, 88.67969, 130.57031, 46, 132.42188, 90.296875, 131, 100, 101.42969, 90, 99.59375, 46, 211, 90, 182.57031, 46, 48, 46, 99.57031, 101, 263, 98)
@@ -115,4 +116,7 @@ script = ExtResource("4_10b7p")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="OrderPad" parent="UI" instance=ExtResource("5_cbdxm")]
+visible = false
+
+[node name="HatchUI" parent="UI" instance=ExtResource("8_d4hhe")]
 visible = false
