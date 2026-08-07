@@ -19,7 +19,7 @@ func on_interact() -> void:
 	
 	# Fallback: check CanvasLayer directly if find_child missed it
 	if hatch_ui == null:
-		var canvas_layer = owner.get_node_or_null("CanvasLayer")
+		var canvas_layer = owner.get_node_or_null("UI")
 		if canvas_layer:
 			hatch_ui = canvas_layer.get_node_or_null("HatchUI")
 	

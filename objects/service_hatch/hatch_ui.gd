@@ -5,6 +5,7 @@ class_name HatchUI
 @export var default_dish_texture: Texture2D
 
 # Using safe node getters instead of strict @onready paths to prevent hidden crashes
+@onready var rail_drop_area: TextureRect = $HatchFrame/LayoutMargin/MainVbox/RailSection/RailBackground
 @onready var rail_tickets_container: HBoxContainer = $HatchFrame/LayoutMargin/MainVbox/RailSection/RailBackground/RailTicketContainer
 @onready var prepared_food_container: HBoxContainer = $HatchFrame/LayoutMargin/MainVbox/ShelfContainer/ShelfBackground/PreparedFoodContainer
 @onready var close_button: Button = $HatchFrame/LayoutMargin/MainVbox/CloseButton
@@ -17,21 +18,47 @@ func _ready() -> void:
 	
 	if close_button:
 		close_button.pressed.connect(close_hatch_ui)
+	
+	var ticket_tray = get_tree().root.find_child("TicketTray", true, false)
+	if ticket_tray:
+		ticket_tray.hide()
 
 func open_for_hatch(hatch_ref: ServiceHatch) -> void:
-	print("HatchUI script received call! Showing UI...")
 	current_hatch = hatch_ref
 	_refresh_rail_display()
 	_refresh_shelf_display()
 	
 	show()
-	
 	_set_player_movement(false)
+	
+	var ticket_tray = get_tree().root.find_child("TicketTray", true, false)
+	if ticket_tray:
+		ticket_tray.show()
 
 func close_hatch_ui() -> void:
 	_set_player_movement(true)
 	hide()
 	current_hatch = null
+	
+	var ticket_tray = get_tree().root.find_child("TicketTray", true, false)
+	if ticket_tray:
+		ticket_tray.hide()
+	
+	var tray_container = get_tree().root.find_child("TrayContainer", true, false)
+	var ui_root = get_tree().root.find_child("UI", true, false)
+	if ui_root and tray_container:
+		for child in ui_root.get_children():
+			if child is TicketItem:
+				child.is_dragging = false
+				child.reparent(tray_container)
+
+func on_ticket_dropped(ticket_item: TicketItem) -> void:
+	if current_hatch == null:
+		return
+	
+	current_hatch.pin_ticket_to_rail(ticket_item.ticket_data)
+	ticket_item.queue_free()
+	_refresh_rail_display()
 
 func _set_player_movement(enabled: bool) -> void:
 	var player = get_tree().root.find_child("Player", true, false)

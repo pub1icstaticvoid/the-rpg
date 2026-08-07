@@ -34,9 +34,10 @@ func spawn_party(party_size: int) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if tables.is_empty():
-		for child in get_parent().get_children():
-			if child is Table:
-				tables.append(child)
+		var found_tables = get_parent().find_children("*", "Table", true, false)
+		for node in found_tables:
+			if node is Table:
+				tables.append(node)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

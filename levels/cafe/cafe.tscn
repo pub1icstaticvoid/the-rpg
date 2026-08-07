@@ -47,26 +47,29 @@ visible = false
 position = Vector2(1, 0)
 navigation_polygon = SubResource("NavigationPolygon_10b7p")
 
-[node name="Table" parent="." instance=ExtResource("3_sngxr")]
+[node name="Tables" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Table1" parent="Tables" instance=ExtResource("3_sngxr")]
 position = Vector2(76, 68)
 
-[node name="Table2" parent="." instance=ExtResource("3_sngxr")]
+[node name="Table2" parent="Tables" instance=ExtResource("3_sngxr")]
 position = Vector2(159, 68)
 table_id = 2
 
-[node name="Table3" parent="." instance=ExtResource("3_sngxr")]
+[node name="Table3" parent="Tables" instance=ExtResource("3_sngxr")]
 position = Vector2(238, 68)
 table_id = 3
 
-[node name="Table4" parent="." instance=ExtResource("3_sngxr")]
+[node name="Table4" parent="Tables" instance=ExtResource("3_sngxr")]
 position = Vector2(76, 123)
 table_id = 4
 
-[node name="Table5" parent="." instance=ExtResource("3_sngxr")]
+[node name="Table5" parent="Tables" instance=ExtResource("3_sngxr")]
 position = Vector2(158, 122)
 table_id = 5
 
-[node name="Table6" parent="." instance=ExtResource("3_sngxr")]
+[node name="Table6" parent="Tables" instance=ExtResource("3_sngxr")]
 position = Vector2(238, 120)
 table_id = 6
 
@@ -120,3 +123,16 @@ visible = false
 
 [node name="HatchUI" parent="UI" instance=ExtResource("8_d4hhe")]
 visible = false
+
+[node name="TicketTray" type="MarginContainer" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = -200
+
+[node name="TrayContainer" type="HBoxContainer" parent="UI/TicketTray"]
+layout_mode = 2
+alignment = 1

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5gko0c8ob3qb"]
+
+[ext_resource type="Texture2D" uid="uid://bahlskfvl6md4" path="res://assets/sprites/order_pad.png" id="1_yy5y8"]
+[ext_resource type="Script" uid="uid://cpxet1paa5plq" path="res://objects/ticket_item/ticket_item.gd" id="2_1lojb"]
+
+[node name="TicketItem" type="TextureRect"]
+custom_minimum_size = Vector2(200, 400)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yy5y8")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_1lojb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 404.0
+offset_right = -404.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeaderLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Table #"
+
+[node name="OrdersLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Orders"
+autowrap_mode = 2
