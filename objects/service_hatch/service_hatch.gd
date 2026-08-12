@@ -29,13 +29,8 @@ func on_interact() -> void:
 		print("service hatch error: Could not find HatchUI node! Check node name in CanvasLayer.")
 
 func pin_ticket_to_rail(ticket_data: Dictionary) -> void:
-	for i in range(active_tickets.size()):
-		if active_tickets[i]["table"] == ticket_data["table"]:
-			active_tickets[i]["orders"] = ticket_data["orders"].duplicate(true)
-			print("service hatch: updated ticket on rail for table ", ticket_data["table"].table_id)
-			return
 	active_tickets.append(ticket_data)
-	print("service hatch: pinned new ticket to rail for table ", ticket_data["table"].table_id)
+	print("service hatch: pinned ticket to rail for table ", ticket_data["table"].table_id)
 
 func remove_ticket_from_rail(table_ref: Table) -> void:
 	for i in range(active_tickets.size() - 1, -1, -1):

@@ -74,7 +74,7 @@ func on_interact() -> void:
 	match current_state:
 		TableState.EMPTY:
 			print("table ", table_id, " is empty")
-		TableState.WAITING_TO_ORDER, TableState.WAITING_FOR_FOOD:
+		TableState.WAITING_TO_ORDER:
 			print("taking order for party of ", current_party.size(), " at table ", table_id)
 			var order_pad = get_tree().root.find_child("OrderPad", true, false)
 			
@@ -96,6 +96,8 @@ func on_interact() -> void:
 					_spawn_written_ticket(ticket_payload)
 				else: 
 					print("order cancelled for table %d. remaining in WAITING_TO_ORDER" % table_id)
+		TableState.WAITING_FOR_FOOD:
+			print("table %d is waiting for their food" % table_id)
 		TableState.EATING:
 			print("table ", table_id, " is currently eating")
 		TableState.WAITING_FOR_CLEANUP:
@@ -107,24 +109,13 @@ func _spawn_written_ticket(ticket_payload: Dictionary) -> void:
 	if tray_container == null:
 		print("table error: could not find tray container")
 		return
-	
-	var existing_ticket: TicketItem = null
-	
-	for child in tray_container.get_children():
-		if child is TicketItem and child.target_table_id == table_id:
-			existing_ticket = child
-			break
-	
-	if existing_ticket:
-		print("table %d: ticket already in tray. updating data." % table_id)
-		existing_ticket.setup(ticket_payload)
-	else:
-		print("table %d: spawning new ticket in tray." % table_id)
-		var ticket_scene = preload("res://objects/ticket_item/ticket_item.tscn")
-		var ticket_instance = ticket_scene.instantiate() as TicketItem
+
+	print("table %d: spawning new ticket in tray." % table_id)
+	var ticket_scene = preload("res://objects/ticket_item/ticket_item.tscn")
+	var ticket_instance = ticket_scene.instantiate() as TicketItem
 		
-		tray_container.add_child(ticket_instance)
-		ticket_instance.setup(ticket_payload)
+	tray_container.add_child(ticket_instance)
+	ticket_instance.setup(ticket_payload)
 
 func clear_table() -> void:
 	for customer in current_party:

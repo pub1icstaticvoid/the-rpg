@@ -1,7 +1,8 @@
 extends Control
 class_name HatchUI
 
-@export var ticket_paper_texture: Texture2D
+const TICKET_ITEM_SCENE: PackedScene = preload("res://objects/ticket_item/ticket_item.tscn")
+
 @export var default_dish_texture: Texture2D
 
 # Using safe node getters instead of strict @onready paths to prevent hidden crashes
@@ -25,8 +26,7 @@ func _ready() -> void:
 
 func open_for_hatch(hatch_ref: ServiceHatch) -> void:
 	current_hatch = hatch_ref
-	_refresh_rail_display()
-	_refresh_shelf_display()
+	refresh_ui()
 	
 	show()
 	_set_player_movement(false)
@@ -60,6 +60,10 @@ func on_ticket_dropped(ticket_item: TicketItem) -> void:
 	ticket_item.queue_free()
 	_refresh_rail_display()
 
+func refresh_ui() -> void:
+	_refresh_rail_display()
+	_refresh_shelf_display()
+
 func _set_player_movement(enabled: bool) -> void:
 	var player = get_tree().root.find_child("Player", true, false)
 	if player and player.has_method("set_movement_enabled"):
@@ -72,23 +76,12 @@ func _refresh_rail_display() -> void:
 	if current_hatch == null:
 		return
 	
-	for ticket in current_hatch.active_tickets:
-		var ticket_rect = TextureRect.new()
-		if ticket_paper_texture:
-			ticket_rect.texture = ticket_paper_texture
+	for ticket_data in current_hatch.active_tickets:
+		var ticket_instance = TICKET_ITEM_SCENE.instantiate() as TicketItem
+		rail_tickets_container.add_child(ticket_instance)
+		ticket_instance.setup(ticket_data)
 		
-		ticket_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		ticket_rect.custom_minimum_size = Vector2(64, 80)
-		
-		var table_id = ticket["table"].table_id if ticket["table"] else "?"
-		var label = Label.new()
-		label.text = "T-%s" % str(table_id)
-		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		label.set_anchors_preset(PRESET_FULL_RECT)
-		
-		ticket_rect.add_child(label)
-		rail_tickets_container.add_child(ticket_rect)
+		ticket_instance.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _refresh_shelf_display() -> void:
 	for child in prepared_food_container.get_children():
