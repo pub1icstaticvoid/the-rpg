@@ -34,6 +34,7 @@ func setup(data: Dictionary) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
+			grab_focus()
 			_start_drag()
 		elif not event.pressed and is_dragging:
 			_stop_drag()
@@ -71,6 +72,8 @@ func _stop_drag() -> void:
 			reparent(tray_container)
 		elif original_parent and is_instance_valid(original_parent):
 			reparent(original_parent)
+	
+	call_deferred("grab_focus")
 
 func _is_hovering_rail(hatch_ui: HatchUI) -> bool:
 	var drop_area = hatch_ui.find_child("RailBackground", true, false) as TextureRect
@@ -97,10 +100,18 @@ func _apply_font_scaling() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	focus_mode = Control.FOCUS_ALL
+	focus_entered.connect(_on_focus_entered)
+	focus_exited.connect(_on_focus_exited)
+	mouse_entered.connect(_on_mouse_entered)
 
+func _on_mouse_entered() -> void:
+	grab_focus()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if is_dragging:
-		global_position = get_global_mouse_position() - drag_offset
+func _on_focus_entered() -> void:
+	if $FocusBorder:
+		$FocusBorder.show()
+
+func _on_focus_exited() -> void:
+	if $FocusBorder:
+		$FocusBorder.hide()

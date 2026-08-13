@@ -10,7 +10,7 @@ var is_seated: bool = false
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not is_moving:
 		return
 	

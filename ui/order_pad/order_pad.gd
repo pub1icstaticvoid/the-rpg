@@ -162,7 +162,3 @@ func _cancel_order() -> void:
 	order_submitted.emit([])
 	order_cancelled.emit()
 	_close_pad()
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

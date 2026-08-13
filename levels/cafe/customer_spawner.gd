@@ -38,8 +38,3 @@ func _ready() -> void:
 		for node in found_tables:
 			if node is Table:
 				tables.append(node)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

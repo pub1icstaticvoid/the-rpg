@@ -34,6 +34,8 @@ func open_for_hatch(hatch_ref: ServiceHatch) -> void:
 	var ticket_tray = get_tree().root.find_child("TicketTray", true, false)
 	if ticket_tray:
 		ticket_tray.show()
+	
+	call_deferred("_focus_first_tray_ticket")
 
 func close_hatch_ui() -> void:
 	_set_player_movement(true)
@@ -58,11 +60,23 @@ func on_ticket_dropped(ticket_item: TicketItem) -> void:
 	
 	current_hatch.pin_ticket_to_rail(ticket_item.ticket_data)
 	ticket_item.queue_free()
-	_refresh_rail_display()
+	refresh_ui()
+	call_deferred("_focus_first_tray_ticket")
 
 func refresh_ui() -> void:
 	_refresh_rail_display()
 	_refresh_shelf_display()
+
+func _focus_first_tray_ticket() -> void:
+	if not visible:
+		return
+	
+	var tray_container = get_tree().root.find_child("TrayContainer", true, false)
+	if tray_container:
+		for child in tray_container.get_children():
+			if child is TicketItem and not child.is_queued_for_deletion():
+				child.call_deferred("grab_focus")
+				return
 
 func _set_player_movement(enabled: bool) -> void:
 	var player = get_tree().root.find_child("Player", true, false)
@@ -82,6 +96,7 @@ func _refresh_rail_display() -> void:
 		ticket_instance.setup(ticket_data)
 		
 		ticket_instance.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		ticket_instance.focus_mode = Control.FOCUS_NONE
 
 func _refresh_shelf_display() -> void:
 	for child in prepared_food_container.get_children():
@@ -100,14 +115,26 @@ func _refresh_shelf_display() -> void:
 		
 		prepared_food_container.add_child(dish_rect)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		return
 	
 	if event.is_action_pressed("ui_cancel"):
 		close_hatch_ui()
 		get_viewport().set_input_as_handled()
+	
+	if event.is_action_pressed("interact"):
+		var focused_node = get_viewport().gui_get_focus_owner()
+		if focused_node is TicketItem:
+			_pin_focused_ticket(focused_node)
+			get_viewport().set_input_as_handled()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _pin_focused_ticket(ticket_item: TicketItem) -> void:
+	if current_hatch == null:
+		return
+	
+	current_hatch.pin_ticket_to_rail(ticket_item.ticket_data)
+	ticket_item.queue_free()
+	refresh_ui()
+	
+	call_deferred("_focus_first_tray_ticket")

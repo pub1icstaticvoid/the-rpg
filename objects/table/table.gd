@@ -130,8 +130,3 @@ func _ready() -> void:
 		for child in $Seats.get_children():
 			if child is Marker2D:
 				seats.append(child)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

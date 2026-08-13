@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbf48uxfh3qyv"]
+[gd_scene load_steps=8 format=3 uid="uid://dbf48uxfh3qyv"]
 
 [ext_resource type="Texture2D" uid="uid://2j3wjn15lubc" path="res://assets/sprites/hatch_frame.png" id="1_1w5lk"]
 [ext_resource type="Script" uid="uid://bps2m66r2cgp7" path="res://objects/service_hatch/hatch_ui.gd" id="1_sq6nn"]
-[ext_resource type="Texture2D" uid="uid://bahlskfvl6md4" path="res://assets/sprites/order_pad.png" id="2_7k6ct"]
 [ext_resource type="Texture2D" uid="uid://8gi582tr4065" path="res://assets/sprites/ticket_rail.png" id="2_jmwqj"]
 [ext_resource type="Texture2D" uid="uid://d25usmej5p6e0" path="res://assets/sprites/counter_shelf.png" id="3_ppi6y"]
 [ext_resource type="Texture2D" uid="uid://hd83s5mrqn0q" path="res://assets/sprites/empty_plate.png" id="3_ylg4k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l0oix"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7k6ct"]
 
 [node name="HatchUi" type="Control"]
 layout_mode = 3
@@ -15,7 +18,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sq6nn")
-ticket_paper_texture = ExtResource("2_7k6ct")
 default_dish_texture = ExtResource("3_ylg4k")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -38,6 +40,7 @@ offset_right = 577.1098
 offset_bottom = 390.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_1w5lk")
 
 [node name="LayoutMargin" type="MarginContainer" parent="HatchFrame"]
@@ -46,7 +49,8 @@ layout_mode = 0
 offset_left = -3.0
 offset_top = 24.0
 offset_right = 1147.0
-offset_bottom = 675.0
+offset_bottom = 722.0
+theme_override_constants/margin_top = 60
 
 [node name="MainVbox" type="VBoxContainer" parent="HatchFrame/LayoutMargin"]
 layout_mode = 2
@@ -59,6 +63,8 @@ horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="HatchFrame/LayoutMargin/MainVbox"]
 layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_l0oix")
 
 [node name="RailSection" type="VBoxContainer" parent="HatchFrame/LayoutMargin/MainVbox"]
 layout_mode = 2
@@ -76,11 +82,15 @@ texture = ExtResource("2_jmwqj")
 [node name="RailTicketContainer" type="HBoxContainer" parent="HatchFrame/LayoutMargin/MainVbox/RailSection/RailBackground"]
 custom_minimum_size = Vector2(300, 80)
 layout_mode = 0
+offset_left = 7.1098022
+offset_top = 1.0
 offset_right = 1153.1099
 offset_bottom = 81.0
 
 [node name="HSeparator2" type="HSeparator" parent="HatchFrame/LayoutMargin/MainVbox"]
 layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_7k6ct")
 
 [node name="ShelfContainer" type="VBoxContainer" parent="HatchFrame/LayoutMargin/MainVbox"]
 layout_mode = 2
@@ -98,7 +108,3 @@ texture = ExtResource("3_ppi6y")
 [node name="PreparedFoodContainer" type="HBoxContainer" parent="HatchFrame/LayoutMargin/MainVbox/ShelfContainer/ShelfBackground"]
 layout_mode = 0
 offset_right = 1150.0
-
-[node name="CloseButton" type="Button" parent="HatchFrame/LayoutMargin/MainVbox"]
-layout_mode = 2
-text = "Close"

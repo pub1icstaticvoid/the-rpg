@@ -7,10 +7,6 @@ var active_tickets: Array[Dictionary] = []
 # Format per plate: { "table": table_ref, "item_name": String }
 var ready_dishes: Array[Dictionary] = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
 func on_interact() -> void:
 	print("service hatch: opening hatch UI...")
 	
@@ -38,7 +34,3 @@ func remove_ticket_from_rail(table_ref: Table) -> void:
 			active_tickets.remove_at(i)
 			print("service hatch: removed ticket to rail for table ", table_ref.table_id)
 			break
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

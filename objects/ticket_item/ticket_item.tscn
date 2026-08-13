@@ -1,19 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5gko0c8ob3qb"]
+[gd_scene load_steps=6 format=3 uid="uid://c5gko0c8ob3qb"]
 
+[ext_resource type="Shader" uid="uid://b7x34ipaxenus" path="res://objects/ticket_item/ticket_item.gdshader" id="1_gypjg"]
 [ext_resource type="Texture2D" uid="uid://bahlskfvl6md4" path="res://assets/sprites/order_pad.png" id="1_yy5y8"]
 [ext_resource type="Script" uid="uid://cpxet1paa5plq" path="res://objects/ticket_item/ticket_item.gd" id="2_1lojb"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i161j"]
+resource_local_to_scene = true
+shader = ExtResource("1_gypjg")
+shader_parameter/enabled = false
+shader_parameter/outline_color = Color(1, 0.84, 0, 1)
+shader_parameter/line_thickness = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gypjg"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.92941177, 0.8509804, 0, 1)
+
 [node name="TicketItem" type="TextureRect"]
+material = SubResource("ShaderMaterial_i161j")
 custom_minimum_size = Vector2(200, 400)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 texture = ExtResource("1_yy5y8")
 expand_mode = 1
-stretch_mode = 5
+stretch_mode = 6
 script = ExtResource("2_1lojb")
+
+[node name="FocusBorder" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gypjg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
